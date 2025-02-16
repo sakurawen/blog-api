@@ -5,8 +5,10 @@
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.4.3",
     "hono": "^4.7.1",
-    "notion-client": "^7.1.6"
+    "notion-client": "^7.1.6",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250109.0",
