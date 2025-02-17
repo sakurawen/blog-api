@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "@hono/zod-validator": "^0.4.3",
+    "@neondatabase/serverless": "^0.10.4",
+    "drizzle-orm": "^0.39.3",
     "hono": "^4.7.1",
     "notion-client": "^7.1.6",
     "zod": "^3.24.2"
@@ -14,6 +16,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^4.2.1",
     "@cloudflare/workers-types": "^4.20250109.0",
+    "drizzle-kit": "^0.30.4",
     "eslint": "^9.20.1",
     "wrangler": "^3.101.0"
   }
