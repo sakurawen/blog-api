@@ -1,7 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import * as schema from '~/schema';
-import { factory } from '../factory';
+import { factory } from './factory';
 
 export const betterAuthMiddleware = factory.createMiddleware(async (c, next) => {
   const db = c.var.db;

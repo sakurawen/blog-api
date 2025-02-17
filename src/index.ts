@@ -4,9 +4,10 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { z } from 'zod';
 import * as schema from '~/schema';
-import { betterAuthMiddleware } from './middlewares/better-auth/middleware';
-import { drizzleMiddleware } from './middlewares/db/middleware';
-import { notionMiddleware } from './middlewares/notion/middleware';
+import { betterAuthMiddleware } from './middlewares/better-auth';
+import { drizzleMiddleware } from './middlewares/db';
+import { notionMiddleware } from './middlewares/notion';
+import { sessionMiddleware } from './middlewares/session';
 
 const app = new Hono<Env>();
 
@@ -59,7 +60,7 @@ app.get('/comments/:postId', async (c) => {
   }
 });
 
-app.post('/comments', zValidator('json', z.object({
+app.post('/comments', sessionMiddleware, zValidator('json', z.object({
   postId: z.string(),
   userId: z.string(),
   content: z.string(),

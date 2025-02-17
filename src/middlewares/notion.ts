@@ -1,5 +1,5 @@
 import { NotionAPI } from 'notion-client';
-import { factory } from '../factory';
+import { factory } from './factory';
 
 let notionClient: NotionAPI;
 export const notionMiddleware = factory.createMiddleware(async (c, next) => {

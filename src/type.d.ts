@@ -3,6 +3,8 @@ import type { NeonHttpDatabase } from 'drizzle-orm/neon-http';
 import type { NotionAPI } from 'notion-client';
 import type * as schema from '~/schema';
 
+type AuthClient = ReturnType<typeof betterAuth>;
+
 export interface Env {
   Bindings: {
     NOTION_KEY: string
@@ -14,8 +16,10 @@ export interface Env {
     GITHUB_CLIENT_SECRET: string
   }
   Variables: {
-    auth: ReturnType<typeof betterAuth>
+    auth: AuthClient
     notion: NotionAPI
     db: NeonHttpDatabase<typeof schema>
+    user: AuthClient['$Infer']['Session']['user'] | null
+    session: AuthClient['$Infer']['Session']['session'] | null
   }
 }
