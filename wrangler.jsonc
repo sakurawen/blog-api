@@ -3,6 +3,9 @@
   "name": "blog-api",
   "main": "src/index.ts",
   "compatibility_date": "2025-02-16",
-  "vars": {
+  "observability": {
+    "logs": {
+      "enabled": true
+    }
   }
 }

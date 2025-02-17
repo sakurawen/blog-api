@@ -10,14 +10,18 @@ import { notionMiddleware } from './middlewares/notion/middleware';
 
 const app = new Hono<Env>();
 
-app.use('*', cors({
-  origin: ['http://localhost:3000', 'https://www.akumanoko.com'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-  allowMethods: ['POST', 'GET', 'OPTIONS'],
-  exposeHeaders: ['Content-Length'],
-  maxAge: 600,
-  credentials: true,
-})).use(drizzleMiddleware).use(notionMiddleware).use(betterAuthMiddleware);
+app
+  .use('*', cors({
+    origin: ['http://localhost:3000', 'https://www.akumanoko.com'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    exposeHeaders: ['Content-Length'],
+    maxAge: 600,
+    credentials: true,
+  }))
+  .use(drizzleMiddleware)
+  .use(notionMiddleware)
+  .use(betterAuthMiddleware);
 
 app.get('/', (c) => {
   return c.text('New World');

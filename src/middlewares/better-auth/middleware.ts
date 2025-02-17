@@ -10,9 +10,13 @@ export const betterAuthMiddleware = factory.createMiddleware(async (c, next) => 
     emailAndPassword: {
       enabled: true,
     },
+    trustedOrigins: [
+      'http://localhost:3000',
+      'https://www.akumanoko.com',
+    ],
     socialProviders: {
       github: {
-        clientId: c.env.GITHUB_CLIENT_SECRET,
+        clientId: c.env.GITHUB_CLIENT_ID,
         clientSecret: c.env.GITHUB_CLIENT_SECRET,
       },
     },
