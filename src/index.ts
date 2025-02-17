@@ -6,6 +6,10 @@ const app = new Hono<Env>();
 
 app.use(notionMiddleware);
 
+app.get('/', (c) => {
+  return c.text('New World');
+});
+
 app.get('/blog', async (c) => {
   const result = await c.var.notion.getPage(c.env.NOTION_PAGE_ID);
   return c.json(result);
