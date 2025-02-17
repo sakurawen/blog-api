@@ -10,7 +10,7 @@ import { notionMiddleware } from './middlewares/notion/middleware';
 
 const app = new Hono<Env>();
 
-app.use(cors()).use(drizzleMiddleware).use(notionMiddleware).use(betterAuthMiddleware);
+app.use('*', cors()).use(drizzleMiddleware).use(notionMiddleware).use(betterAuthMiddleware);
 
 app.get('/', (c) => {
   return c.text('New World');
