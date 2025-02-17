@@ -1,6 +1,7 @@
 {
   "name": "blog-api",
   "scripts": {
+    "lint": "eslint . --fix",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify"
   },
@@ -11,7 +12,9 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^4.2.1",
     "@cloudflare/workers-types": "^4.20250109.0",
+    "eslint": "^9.20.1",
     "wrangler": "^3.101.0"
   }
 }
