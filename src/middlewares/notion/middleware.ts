@@ -2,7 +2,7 @@ import { NotionAPI } from 'notion-client';
 import { factory } from '../factory';
 
 let notionClient: NotionAPI;
-export const notionMiddleware = factory.createMiddleware((c, next) => {
+export const notionMiddleware = factory.createMiddleware(async (c, next) => {
   if (!notionClient) {
     notionClient = new NotionAPI({
       authToken: c.env.NOTION_KEY,
@@ -13,5 +13,5 @@ export const notionMiddleware = factory.createMiddleware((c, next) => {
     c.set('notion', notionClient);
   }
 
-  return next();
+  await next();
 });

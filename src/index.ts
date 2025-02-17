@@ -1,17 +1,24 @@
 import type { Env } from '~/type';
 import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 import { z } from 'zod';
+import * as schema from '~/schema';
+import { betterAuthMiddleware } from './middlewares/better-auth/middleware';
 import { drizzleMiddleware } from './middlewares/db/middleware';
 import { notionMiddleware } from './middlewares/notion/middleware';
-import * as schema from "~/schema"
 
 const app = new Hono<Env>();
 
-app.use(notionMiddleware).use(drizzleMiddleware);
+app.use(cors()).use(drizzleMiddleware).use(notionMiddleware).use(betterAuthMiddleware);
 
 app.get('/', (c) => {
   return c.text('New World');
+});
+
+app.on(['POST', 'GET'], '/api/auth/*', (c) => {
+  const auth = c.var.auth;
+  return auth.handler(c.req.raw);
 });
 
 app.get('/blog', async (c) => {
@@ -48,8 +55,8 @@ app.post('/comments', zValidator('json', z.object({
   createAt: z.date(),
 })), async (c) => {
   const create = c.req.valid('json');
-  const result = await c.var.db.insert(schema.comments).values(create)
-  return c.json(result)
+  const result = await c.var.db.insert(schema.comments).values(create);
+  return c.json(result);
 });
 
 export default app;
