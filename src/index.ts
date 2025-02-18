@@ -13,7 +13,7 @@ const app = new Hono<Env>();
 
 app
   .use('*', cors({
-    origin: ['http://localhost:3000', 'https://www.akumanoko.com'],
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://www.akumanoko.com'],
     allowHeaders: ['Content-Type', 'Authorization'],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
     exposeHeaders: ['Content-Length'],
