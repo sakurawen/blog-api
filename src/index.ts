@@ -48,6 +48,9 @@ app.get('/comments/:postId', async (c) => {
   try {
     const postId = c.req.param('postId');
     const result = await c.var.db.query.comments.findMany({
+      with: {
+        user: true,
+      },
       where(fields, { eq }) {
         return eq(fields.postId, postId);
       },
