@@ -13,7 +13,7 @@ const app = new Hono<Env>();
 
 app
   .use('*', cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://www.akumanoko.com'],
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://www.akumanoko.com', 'https://akumanoko.com', 'https://blog.akumanoko.com'],
     allowHeaders: ['Content-Type', 'Authorization'],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
     exposeHeaders: ['Content-Length'],
@@ -47,7 +47,7 @@ app.get('/blog/:id', async (c) => {
 app.get('/comments/:postId', async (c) => {
   try {
     const postId = c.req.param('postId');
-    const result = c.var.db.query.comments.findMany({
+    const result = await c.var.db.query.comments.findMany({
       where(fields, { eq }) {
         return eq(fields.postId, postId);
       },
@@ -64,10 +64,12 @@ app.post('/comments', sessionMiddleware, zValidator('json', z.object({
   postId: z.string(),
   userId: z.string(),
   content: z.string(),
-  createAt: z.date(),
 })), async (c) => {
   const create = c.req.valid('json');
-  const result = await c.var.db.insert(schema.comments).values(create);
+  const result = await c.var.db.insert(schema.comments).values({
+    ...create,
+    createAt: new Date(),
+  });
   return c.json(result);
 });
 
