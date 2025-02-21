@@ -68,6 +68,11 @@ app.post('/comments', sessionMiddleware, zValidator('json', z.object({
   userId: z.string(),
   content: z.string(),
 })), async (c) => {
+
+  if (!c.var.user) {
+    return c.body(null, 403);
+  }
+
   const create = c.req.valid('json');
   const result = await c.var.db.insert(schema.comments).values({
     ...create,
