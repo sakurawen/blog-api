@@ -10,6 +10,11 @@ export const betterAuthMiddleware = factory.createMiddleware(async (c, next) => 
     emailAndPassword: {
       enabled: true,
     },
+    advanced: {
+      crossSubDomainCookies: {
+        enabled: true,
+      },
+    },
     trustedOrigins: [
       'http://localhost:3000',
       'https://www.akumanoko.com',
